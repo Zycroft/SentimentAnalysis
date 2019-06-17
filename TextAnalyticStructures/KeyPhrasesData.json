@@ -1,0 +1,19 @@
+{
+    "documents": [
+      {
+        "language": "en",
+        "id": "1",
+        "text": "Totti: “The main focus of certain people has been to remove Romans from AS Roma. Over the last eight years, since the Americans came in, they tried in every possible way to shove us to one side. It’s what they wanted and in the end, they succeeded."
+      },
+      {
+        "language": "fr",
+        "id": "2",
+        "text": "Bonjor tout le monde"
+      },
+      {
+        "language": "es",
+        "id": "3",
+        "text": "La carretera estaba atascada. Había mucho tráfico el día de ayer."
+      }
+    ]
+  }

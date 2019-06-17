@@ -3,6 +3,10 @@ using RestSharp;
 using QuickTypeAuth;
 using QuickTypeArticles;
 using QuickTypeComments;
+using QuickTypeEtitiesData;
+using QuickTypeEtitiesResult;
+using QuickTypeSemtimentData;
+using QuickTypeSemtimentResult;
 
 namespace RedditSentiment
 {
@@ -10,36 +14,85 @@ namespace RedditSentiment
     {
         static void Main(string[] args)
         {
-            string redditAccessToken = "11804495-3JQOnNM7QfNDlH-R69n5OlIuP4o";
+            string redditAccessToken = "11804495-klXSQhPxHH7LsDXDVNmqQMbTiPQ";
+            string AzureAppKey = "0dc6ffa484c1449ab35f6b25ced49da5";
             //string redditAccessToken = AuthToken();
             RedditArticles myArt = GetArticles(redditAccessToken);
             foreach(QuickTypeArticles.Child articl in myArt.Data.Children)
             {
-                Console.WriteLine("+" + articl.Data.Title);
-                System.Threading.Thread.Sleep(1000);
-                RedditComments[] myComments = GetComments(redditAccessToken, articl.Data.Name.Substring(3));
-                foreach(RedditComments comm in myComments)
+                if (articl.Kind == "t3" && articl.Data.Author != "AutoModerator")  // Ensure its an Article and not a bot post
                 {
-                    foreach(PurpleChild subcomm in comm.Data.Children)
-                    if (subcomm.Kind == "t1")
+
+                    SemtimentResult ArtSentiment = GetSentiment(AzureAppKey, articl.Data.Title);
+                    EtitiesResult ArtEntities = GetEntities(AzureAppKey, articl.Data.Title);
+                    Console.WriteLine("A:" + articl.Data.Title);
+                    Console.WriteLine("S:" + ArtSentiment.Documents[0].Score.ToString());
+                    foreach(QuickTypeEtitiesResult.Entity artEnt in ArtEntities.Documents[0].Entities)
                     {
-                        Console.WriteLine("+++" + subcomm.Data.Body);
+                        Console.WriteLine("e:" + artEnt.Name);
                     }
+                    System.Threading.Thread.Sleep(1000);
+                    ParseComments(redditAccessToken, articl.Data.Name.Substring(3));
+                }
+
+            }
+        }
+
+        static void ParseComments(string _token, string _ArtID)
+        {
+            RedditComments[] myComments = GetComments(_token, _ArtID);
+            foreach(RedditComments comm in myComments)
+            {
+                foreach(PurpleChild subcomm in comm.Data.Children)
+                if (subcomm.Kind == "t1")
+                {
+                    Console.WriteLine("+++" + subcomm.Data.Body);
                 }
             }
+        }
 
+        static SemtimentResult GetSentiment(string _Azuretoken, string _Text)
+        {
+            SemtimentData _AzData = new SemtimentData();
+            QuickTypeSemtimentData.Document[] _Docs = new QuickTypeSemtimentData.Document[1];
+            _Docs[0] = new QuickTypeSemtimentData.Document 
+            {
+                Id = 1,
+                Language = "en",
+                Text = _Text
+            };
+            _AzData.Documents = _Docs;
+            String _JsonData = _AzData.ToJson();
+            var client = new RestClient("https://westus2.api.cognitive.microsoft.com/text/analytics/v2.0/sentiment");
+            var request = new RestRequest(Method.POST);            
+            request.AddHeader("Ocp-Apim-Subscription-Key", _Azuretoken);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", _JsonData, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            SemtimentResult _Sentement= SemtimentResult.FromJson(response.Content);
+            return _Sentement;
+        }
 
-
-            /* 
-            quicktype samples -o reddit.cs 
-
-            curl -H "Authorization: bearer 11804495" -A "Sentiment Analysis/0.1 by Zycroft" https://oauth.reddit.com/api/v1/me
-
-            GET [/r/subreddit]/new
-            curl -H "Authorization: bearer 11804495" -A "Sentiment Analysis/0.1 by Zycroft" https://oauth.reddit.com/r/politics/new
-            [/r/subreddit]/comments/article
-            curl -H "Authorization: bearer 11804495" -A "Sentiment Analysis/0.1 by Zycroft" https://oauth.reddit.com/comments/c157lj
-            */
+        static EtitiesResult GetEntities(string _Azuretoken, string _Text)
+        {
+            EtitiesData _AzData = new EtitiesData();
+            QuickTypeEtitiesData.Document[] _Docs = new QuickTypeEtitiesData.Document[1];
+            _Docs[0] = new QuickTypeEtitiesData.Document 
+            {
+                Id = 1,
+                Language = "en",
+                Text = _Text
+            };
+            _AzData.Documents = _Docs;
+            String _JsonData = _AzData.ToJson();
+            var client = new RestClient("https://westus2.api.cognitive.microsoft.com/text/analytics/v2.0/entities");
+            var request = new RestRequest(Method.POST);            
+            request.AddHeader("Ocp-Apim-Subscription-Key", _Azuretoken);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("undefined", _JsonData, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            EtitiesResult _Entities = EtitiesResult.FromJson(response.Content);
+            return _Entities;
         }
 
         static RedditComments[] GetComments(string _token, string _ArtID)
@@ -49,18 +102,16 @@ namespace RedditSentiment
             request.AddHeader($"Authorization", "Bearer " + _token);
             request.AddParameter("undefined", "Sentiment Analysis/0.1 by Zycroft", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-
             RedditComments[] myReddit = RedditComments.FromJson(response.Content);
             return myReddit;
         }
         static RedditArticles GetArticles(string _token)
         {
-            var client = new RestClient("https://oauth.reddit.com/r/soccer/new?limit=2");
+            var client = new RestClient("https://oauth.reddit.com/r/soccer/hot");
             var request = new RestRequest(Method.GET);
             request.AddHeader($"Authorization", "Bearer " + _token);
             request.AddParameter("undefined", "Sentiment Analysis/0.1 by Zycroft", ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-
             RedditArticles myReddit = RedditArticles.FromJson(response.Content);
             return myReddit;
         }
@@ -84,7 +135,6 @@ namespace RedditSentiment
             request.AddHeader("User-Agent", "PostmanRuntime/7.15.0");
             request.AddHeader("Authorization", "Basic ");
             IRestResponse response = client.Execute(request);
-
             RedditAuth myReddit = RedditAuth.FromJson(response.Content);
             return myReddit.AccessToken;
         }

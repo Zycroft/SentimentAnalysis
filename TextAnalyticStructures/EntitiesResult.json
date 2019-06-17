@@ -1,0 +1,102 @@
+{
+    "documents": [
+        {
+            "id": "1",
+            "entities": [
+                {
+                    "name": "United States",
+                    "matches": [
+                        {
+                            "text": "Americans",
+                            "offset": 118,
+                            "length": 9
+                        }
+                    ],
+                    "wikipediaLanguage": "en",
+                    "wikipediaId": "United States",
+                    "wikipediaUrl": "https://en.wikipedia.org/wiki/United_States",
+                    "bingId": "5232ed96-85b1-2edb-12c6-63e6c597a1de"
+                },
+                {
+                    "name": "A.S. Roma",
+                    "matches": [
+                        {
+                            "text": "AS Roma",
+                            "offset": 72,
+                            "length": 7
+                        }
+                    ],
+                    "wikipediaLanguage": "en",
+                    "wikipediaId": "A.S. Roma",
+                    "wikipediaUrl": "https://en.wikipedia.org/wiki/A.S._Roma",
+                    "bingId": "c060d71d-ea69-949a-d30a-d147d923cd5d"
+                },
+                {
+                    "name": "Rome",
+                    "matches": [
+                        {
+                            "text": "Romans",
+                            "offset": 60,
+                            "length": 6
+                        }
+                    ],
+                    "wikipediaLanguage": "en",
+                    "wikipediaId": "Rome",
+                    "wikipediaUrl": "https://en.wikipedia.org/wiki/Rome",
+                    "bingId": "5ed498af-fa85-2a88-874d-212494ddb06f"
+                },
+                {
+                    "name": "Francesco Totti",
+                    "matches": [
+                        {
+                            "text": "Totti",
+                            "offset": 0,
+                            "length": 5
+                        }
+                    ],
+                    "wikipediaLanguage": "en",
+                    "wikipediaId": "Francesco Totti",
+                    "wikipediaUrl": "https://en.wikipedia.org/wiki/Francesco_Totti",
+                    "bingId": "b034801e-d851-8a5d-cf0f-cf7cf62b67f4"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "entities": [
+                {
+                    "name": "Bill Gates",
+                    "matches": [
+                        {
+                            "text": "Bill Gates III",
+                            "offset": 9,
+                            "length": 14
+                        }
+                    ],
+                    "wikipediaLanguage": "en",
+                    "wikipediaId": "Bill Gates",
+                    "wikipediaUrl": "https://en.wikipedia.org/wiki/Bill_Gates",
+                    "bingId": "0d47c987-0042-5576-15e8-97af601614fa"
+                },
+                {
+                    "name": "Paul Allen",
+                    "matches": [
+                        {
+                            "text": "Paul Allen",
+                            "offset": 28,
+                            "length": 10
+                        }
+                    ],
+                    "wikipediaLanguage": "en",
+                    "wikipediaId": "Paul Allen",
+                    "wikipediaUrl": "https://en.wikipedia.org/wiki/Paul_Allen",
+                    "bingId": "df2c4376-9923-6a54-893f-2ee5a5badbc7"
+                }
+            ]
+        }
+    ],
+    "errors": [        {
+        "id": "1",
+        "message": "Supplied language is not supported. Pass in one of: en,es. See https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/overview for the complete list of support languages."
+    }]
+}

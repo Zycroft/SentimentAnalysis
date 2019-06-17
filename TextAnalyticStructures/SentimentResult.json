@@ -1,0 +1,20 @@
+{
+    "documents": [
+        {
+            "id": "1",
+            "score": 0.98690706491470337
+        },
+        {
+            "id": "2",
+            "score": 0.84012651443481445
+        },
+        {
+            "id": "3",
+            "score": 0.334433376789093
+        }
+    ],
+    "errors": [ {
+        "id": "1",
+        "message": "Supplied language is not supported. Pass in one of: en,es. See https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/overview for the complete list of support languages."
+    }]
+}

@@ -1,0 +1,35 @@
+{
+    "documents": [
+        {
+            "id": "1",
+            "keyPhrases": [
+                "main focus of certain people",
+                "Romans",
+                "Totti",
+                "years",
+                "Americans",
+                "possible way",
+                "end"
+            ]
+        },
+        {
+            "id": "2",
+            "keyPhrases": [
+                "Bonjor",
+                "monde"
+            ]
+        },
+        {
+            "id": "3",
+            "keyPhrases": [
+                "carretera",
+                "tráfico",
+                "día"
+            ]
+        }
+    ],
+    "errors": [ {
+        "id": "1",
+        "message": "Supplied language is not supported. Pass in one of: en,es. See https://docs.microsoft.com/en-us/azure/cognitive-services/text-analytics/overview for the complete list of support languages."
+    }]
+}
