@@ -5,7 +5,7 @@ and Microsoft Azure Cosmos DB Query graph and Gremlin API. The goal of the appli
 Subreddit and build a graph of two verticies Articles and entities of the articles with the edges representing the 
 sentiment of the Article to the entity.
 
-![ArticleEntity](https://github.com/Zycroft/SentimentAnalysis/Resources/ArticleEntity.png?raw=true)
+![ArticleEntity](https://github.com/Zycroft/SentimentAnalysis/blob/master/Resources/ArticleEntity.png?raw=true)
 ## Setup
 
 1. Create Reddit API account <https://www.reddit.com/wiki/api#wiki_reddit_api_access>
@@ -54,7 +54,7 @@ sentiment of the Article to the entity.
         - Throughput: leave at 400
 10. I used VS Code to develop this project with C# Extension
 11. Open program.cs and update your recorded values for Reddit, Azure Text Analytics, and Azure Cosmo DB
-![CodeUserVaulues](https://github.com/Zycroft/SentimentAnalysis/Resources/Code1.png?raw=true)
+![CodeUserVaulues](https://github.com/Zycroft/SentimentAnalysis/blob/master/Resources/Code1.png?raw=true)
 12. The project should query /r/soccer/hot and populate the cosmos db you created.
 13. Run some queries  (the queries below will not be the same for you)
     * First install **Azure Cosmos DB** Extension into VS Code
