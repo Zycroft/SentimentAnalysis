@@ -50,7 +50,7 @@ sentiment of the Article to the entity.
         - Database id: Type and record the database id
         - Graph id: Type and record the graph id
         - Storage Capacity: Select Fixed (10GB) Storage Capacity
-        - Patition key: you should not see this if you select Fixed (10GB)
+        - Partition key: you should not see this if you select Fixed (10GB)
         - Throughput: leave at 400
 10. I used VS Code to develop this project with C# Extension
 11. Open program.cs and update your recorded values for Reddit, Azure Text Analytics, and Azure Cosmo DB
@@ -61,11 +61,3 @@ sentiment of the Article to the entity.
     * Goto data explorer select your Graph and "load graph"
     * Find an entity e.g. Neymar g.V().hasLabel('Entity').has('Name','Neymar')
     * Find all negative sentiment articles about Neymar g.V().hasLabel('Entity').has('Name','Neymar').in('Negative')
-
-<br />
-    ![Running a query](images/running_a_query.png)
-
-    1. Enter your gremlin query and execute.
-    2. If the output is a graph, it will show on the network graph surface.
-    3. All output are shown on the console area.  This is especially important if your query returns a string or an array of strings instead of a graph.
-
