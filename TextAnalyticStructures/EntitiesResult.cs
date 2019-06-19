@@ -4,9 +4,9 @@
 //
 //    using QuickType;
 //
-//    var etitiesData = EtitiesData.FromJson(jsonString);
+//    var etitiesResult = EtitiesResult.FromJson(jsonString);
 
-namespace QuickTypeEtitiesData
+namespace QuickTypeEntitiesResult
 {
     using System;
     using System.Collections.Generic;
@@ -15,33 +15,76 @@ namespace QuickTypeEtitiesData
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
 
-    public partial class EtitiesData
+    public partial class EntitiesResult
     {
         [JsonProperty("documents")]
         public Document[] Documents { get; set; }
+
+        [JsonProperty("errors")]
+        public Error[] Errors { get; set; }
     }
 
     public partial class Document
     {
-        [JsonProperty("language")]
-        public string Language { get; set; }
-
         [JsonProperty("id")]
         [JsonConverter(typeof(ParseStringConverter))]
         public long Id { get; set; }
 
-        [JsonProperty("text")]
-        public string Text { get; set; }
+        [JsonProperty("entities")]
+        public Entity[] Entities { get; set; }
     }
 
-    public partial class EtitiesData
+    public partial class Entity
     {
-        public static EtitiesData FromJson(string json) => JsonConvert.DeserializeObject<EtitiesData>(json, QuickTypeEtitiesData.Converter.Settings);
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("matches")]
+        public Match[] Matches { get; set; }
+
+        [JsonProperty("wikipediaLanguage")]
+        public string WikipediaLanguage { get; set; }
+
+        [JsonProperty("wikipediaId")]
+        public string WikipediaId { get; set; }
+
+        [JsonProperty("wikipediaUrl")]
+        public Uri WikipediaUrl { get; set; }
+
+        [JsonProperty("bingId")]
+        public Guid BingId { get; set; }
+    }
+
+    public partial class Match
+    {
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
+        [JsonProperty("offset")]
+        public long Offset { get; set; }
+
+        [JsonProperty("length")]
+        public long Length { get; set; }
+    }
+
+    public partial class Error
+    {
+        [JsonProperty("id")]
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long Id { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
+    }
+
+    public partial class EntitiesResult
+    {
+        public static EntitiesResult FromJson(string json) => JsonConvert.DeserializeObject<EntitiesResult>(json, QuickTypeEntitiesResult.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this EtitiesData self) => JsonConvert.SerializeObject(self, QuickTypeEtitiesData.Converter.Settings);
+        public static string ToJson(this EntitiesResult self) => JsonConvert.SerializeObject(self, QuickTypeEntitiesResult.Converter.Settings);
     }
 
     internal static class Converter
