@@ -65,7 +65,7 @@ sentiment of the Article to the entity.
 ![Azure3](https://github.com/Zycroft/SentimentAnalysis/blob/master/Resources/Azure3.png?raw=true)
 
 10. I used VS Code to develop this project with C# Extension
-11. Open program.cs and update your recorded values for Reddit, Azure Text Analytics, and Azure Cosmo DB
+11. Open program.cs and update your recorded values for Reddit, Azure Text Analytics, and Azure Cosmo DB.  This is an example project and we are storing the API key in the code which is **not safe**.  For production applications store keys in a secure store like Azure key Vault.
 
 ![CodeUserValues](https://github.com/Zycroft/SentimentAnalysis/blob/master/Resources/Code1.png?raw=true)
 
